@@ -245,3 +245,44 @@ Task:
 1. Enter VM public IP Address in a browser.
 
    <img width="936" height="131" alt="image" src="https://github.com/user-attachments/assets/669af4c4-3962-4386-af46-8721a3200547" />
+
+az acr login --name nautilusacr25952
+ 
+cd /root/pyapp
+
+docker build -t nautilusacr25952.azurecr.io/nautilus/python-app:latest .
+
+docker push nautilusacr25952.azurecr.io/nautilus/python-app:latest
+
+az acr repository list --name nautilusacr25952 --output table
+
+ssh azureuser@20.127.104.161
+
+sudo apt update
+sudo apt install -y docker.io
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker azureuser
+exit
+
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+az version
+
+az login
+
+docker login nautilusacr25952.azurecr.io
+
+username:nautilusacr25952
+password:BNiOVm98z1P5XkRx8DUKlRgbmjSYaQMW2i0TbznNYuC03gFXBURhJQQJ99CFACYeBjFEqg7NAAACAZCRTvq1
+
+
+sudo scp -i /root/.ssh/id_rsa -o StrictHostKeyChecking=no /root/config.json azureuser@20.127.104.161:/home/azureuser/config.json
+
+docker run -d \
+  -p 80:80 \
+  -v /home/azureuser/config.json:/app/config.json \
+  --name nautilus-app \
+  nautilusacr25952.azurecr.io/nautilus/python-app:latest
+
+docker ps
