@@ -171,3 +171,21 @@ The VM should securely download the `index.html` blob directly from the designat
 9. **Open browser and enter public ip of the Virtual machine.**
 
    <img width="1117" height="176" alt="image" src="https://github.com/user-attachments/assets/14b0ace0-f18f-4ac8-bf9a-68fc2afcddd7" />
+
+
+ **Correct commands**
+
+ssh azureuser@20.124.103.191
+
+sudo apt update -y
+sudo apt install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+az login
+
+get access key from storage browser
+
+sudo az storage blob download --account-name nautilusstor6851 --account-key <straoge_account_key> --container-name nautilus-container --name index.html --file /var/www/html/index.html
